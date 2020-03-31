@@ -1,3 +1,4 @@
+using Garage1_0;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests
@@ -6,12 +7,25 @@ namespace UnitTests
     public class GarageUnitTests
     {
         [TestMethod]
-        public void CreateGarage()
+        public void CreateGarage_capacityOfFive_capacityIsFive()
         {
+            const int expected = 5;
+            Garage g = new Garage(expected);
 
-            Garage garage = new Garage(20);
-      
+            int actual = g.Capacity;
 
+            Assert.AreEqual(expected, actual);
         }
+
+        public void CreateGarage_capacityWithZero_capacityIsZero()
+        {
+            const int expected = 0;
+            Garage g = new Garage(expected);
+
+            int actual = g.Capacity;
+
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Garage
+namespace Garage1_0
 {
     class Program
     {
@@ -8,7 +8,7 @@ namespace Garage
         {
           
 
-
+            
 
 
         }
