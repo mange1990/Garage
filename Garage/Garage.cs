@@ -12,7 +12,6 @@
 
         public Garage(int capacity)
         {
-            this.capacity = capacity;
             vehicles = new Vehicle[capacity];
         }
 

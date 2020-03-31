@@ -17,6 +17,7 @@ namespace UnitTests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestMethod]
         public void CreateGarage_capacityWithZero_capacityIsZero()
         {
             const int expected = 0;
