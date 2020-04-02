@@ -33,9 +33,8 @@ namespace Garage1_0
         {
             foreach (var item in vehicles)
             {
-                if(item == null)
-                    break;
-                yield return item;
+                if(item != null)
+                   yield return item;
             }
         }
 
@@ -57,6 +56,17 @@ namespace Garage1_0
             return allVehicles;
         }
 
+        internal void buildNewCapacity(int newCapacity)
+        {
+            T[] temp = vehicles;
+            vehicles = new T[newCapacity];
+            for (int i = 0; i < temp.Length; i++)
+            {
+                vehicles[i] = temp[i];
+            }
+
+        }
+
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         public bool AddVehicle(T vehicle)
@@ -70,12 +80,12 @@ namespace Garage1_0
 
         public string ListVehicleTypeCount()
         {
-            var results = vehicles.Where(i => i != null).GroupBy(i => i.GetType().Name).Select(i => new
+            var results = this.GroupBy(i => i.GetType().Name).Select(i => new
             {
                Type = i.Key,
                Count = i.Count()
             });
-                
+          
             string vehiclesTypeCount = "";
             foreach(var result in results)
             {

@@ -6,9 +6,9 @@ namespace Garage1_0
     {
         static void Main(string[] args)
         {
-          
-
+            GarageHandler garageHandler = new GarageHandler();
             
+
 
 
         }
