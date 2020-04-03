@@ -7,6 +7,7 @@
         public int Wheel { get; set; }
         public int Weight { get; set; }
 
+ 
         public Vehicle(string regNr, string color, int wheel, int weight)
         {
             this.RegNr = regNr;
