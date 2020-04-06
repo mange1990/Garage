@@ -138,7 +138,7 @@ namespace UnitTests
             Garage<Vehicle> g = new Garage<Vehicle>(5);
             Bus bus = new Bus("ABC124", "red", 6, 5928, 10);
             Car car = new Car("ABC148", "yellow", 1021, "Porsche");
-            string expected = "1: " + bus.ToString() + "\n2: " + car.ToString() + "\n";
+            string expected = "1: Bus    "  + bus.ToString() + "\n2: Car    " + car.ToString() + "\n";
 
             g.AddVehicle(bus);
             g.AddVehicle(car);
@@ -159,75 +159,6 @@ namespace UnitTests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
-        public void GetVehicleByRegNr_Found_ReturnVehicle()
-        {
-            Garage<Vehicle> g = new Garage<Vehicle>(5);
-            Bus bus1 = new Bus("gmg482", "Black", 8, 6948, 25);
-            Bus bus2 = new Bus("krd124", "red", 6, 5928, 10);
-            Car car1 = new Car("ABC148", "yellow", 1021, "Porsche");
-            Car car2 = new Car("Gri492", "White", 1231, "Volvo");
-            Vehicle expected1 = bus2;
-            Vehicle expected2 = car2;
-
-            g.AddVehicle(bus1);
-            g.AddVehicle(bus2);
-            g.AddVehicle(car1);
-            g.AddVehicle(car2);
-
-            Vehicle actua11 = g.GetVehicleByRegNr("kRd124");
-            Vehicle actual2 = g.GetVehicleByRegNr("grI492");
-
-            Assert.AreEqual(expected1, actua11);
-            Assert.AreEqual(expected2, actual2);
-
-        }
-
-        [TestMethod]
-        public void GetVehicleByRegNr_NotFound_ReturnNull()
-        {
-            Garage<Vehicle> g = new Garage<Vehicle>(5);
-            Bus bus1 = new Bus("gmg482", "Black", 8, 6948, 25);
-            Bus bus2 = new Bus("krd124", "red", 6, 5928, 10);
-            Car car1 = new Car("ABC148", "yellow", 1021, "Porsche");
-            Car car2 = new Car("Gri492", "White", 1231, "Volvo");
-            Vehicle expected1 = null;
-            Vehicle expected2 = null;
-
-            g.AddVehicle(bus1);
-            g.AddVehicle(bus2);
-            g.AddVehicle(car1);
-            g.AddVehicle(car2);
-
-            Vehicle actua11 = g.GetVehicleByRegNr("kRD123");
-            Vehicle actual2 = g.GetVehicleByRegNr("grI491");
-
-            Assert.AreEqual(expected1, actua11);
-            Assert.AreEqual(expected2, actual2);
-
-        }
-
-        [TestMethod]
-        public void ListVehicleTypeCount_FourVehicle_ReturnStringOfTypeAndCount()
-        {
-            Garage<Vehicle> g = new Garage<Vehicle>(5);
-            Bus bus1 = new Bus("gmg482", "Black", 8, 6948, 25);
-            Bus bus2 = new Bus("krd124", "red", 6, 5928, 10);
-            Car car1 = new Car("ABC148", "yellow", 1021, "Porsche");
-            Car car2 = new Car("Gri492", "White", 1231, "Volvo");
-
-            g.AddVehicle(bus1);
-            g.AddVehicle(bus2);
-            g.AddVehicle(car1);
-            g.AddVehicle(car2);
-
-            string actua1 = g.ListVehicleTypeCount();
-
-
-            Assert.AreEqual("", actua1);
- 
-
-        }
 
 
     }

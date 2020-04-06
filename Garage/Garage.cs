@@ -13,10 +13,9 @@ namespace Garage1_0
 
         public int Capacity
         {
-           get { return vehicles.Length; }      
+            get { return vehicles.Length; }
 
         }
-
 
         public int CountVehicle { get; private set; } = 0;
 
@@ -79,8 +78,6 @@ namespace Garage1_0
             CountVehicle++;
             return true;
         }
-
-      
 
         public bool RemoveVehicle(T vehicle)
         {
