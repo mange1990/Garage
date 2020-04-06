@@ -51,13 +51,16 @@ namespace Garage1_0
 
         private void SearchVehicleByProperty()
         {
-            //VehicleTypes vehicleType = ui.GetVehicleType();
-            Dictionary<string, string> proppertiesValues = ui.GetSearchPropertiesAndValues(garageHandler.getAllVehicleProperties());
-
-            List<Vehicle> vehicles = garageHandler.SearchVehicleByProperty(proppertiesValues);
-            ui.PrintVehicles(vehicles);
-
-          //  GetType().GetProperties();
+            Dictionary<string, string> propertiesValues = ui.GetSearchPropertiesAndValues(garageHandler.getAllVehicleProperties());
+            List<Vehicle> vehicles = garageHandler.SearchVehicleByProperty(propertiesValues);
+            if (vehicles.Count == 0)
+            {
+                ui.PrintMessage("Inget fordom hittades med de angivna egenskaperna och värdena");
+            }
+            else
+            {
+                ui.PrintVehicles(vehicles);
+            }
         }
 
         private void Quit()
@@ -79,6 +82,7 @@ namespace Garage1_0
                     while (!garageHandler.BuildGarage(capacity))
                     {
                         ui.PrintWrongMessage($"Kapaciteten får inte vara mindre att antalet parkerade bilar i garaget just nu. \n Ange en kapacitet större än {garageHandler.Garage.CountVehicle}");
+                        capacity = ui.getCapacity();
                     }
                     ui.PrintSuccessMessage($"Kapaciteten för garaget har ändrats till {capacity}");
                     success = true;
@@ -91,8 +95,12 @@ namespace Garage1_0
 
         private void ListVehicleTypeCount()
         {
-            ui.ListVehicleTypeCount(garageHandler.ListVehicleTypeCount());
-      
+            string str = garageHandler.ListVehicleTypeCount();
+
+            if (str != "")
+                ui.ListVehicleTypeCount(garageHandler.ListVehicleTypeCount());
+            else
+                ui.PrintMessage("Inga fordom finns i garaget");
         }
 
         private void SearchVehicleByRegNr()
@@ -118,14 +126,19 @@ namespace Garage1_0
 
         private void AddVehicle()
         {
-           VehicleTypes vehicleType = ui.GetVehicleType();
-           Vehicle vehicle = ui.AddVehicleMenu(vehicleType);
+            VehicleTypes vehicleType = ui.GetVehicleType();
+            Vehicle vehicle = ui.AddVehicleMenu(vehicleType);
 
-            if (garageHandler.AddVehicle(vehicle))
-                ui.PrintSuccessMessage("Fordomet har lagts till i garaget");
+            if (garageHandler.GetVehicleByRegNr(vehicle.RegNr) == null)
+            {
+                if (garageHandler.AddVehicle(vehicle))
+                    ui.PrintSuccessMessage("Fordomet har lagts till i garaget");
+                else
+                    ui.PrintWrongMessage("Ett fel uppstod. Antingen är garaget fullt eller så finns ett fordom med det registreringsnummer");
+            }
             else
-                ui.PrintWrongMessage("Ett fel uppstod. Antingen är garaget fullt eller så finns ett fordom med det registreringsnummer");
-
+                ui.PrintWrongMessage("Det finns redan ett fordom med det registreringsnumret");
+            
         }
 
         private void ListAllVehicles()

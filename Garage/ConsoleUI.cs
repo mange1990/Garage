@@ -10,7 +10,8 @@ namespace Garage1_0
         {
             Console.WriteLine("Välkommen till garage programmet");
             Console.WriteLine("Navigera i menyn genom att ange en siffa mellan 1-5");
-            Console.WriteLine($"Garaget har just nu kapacitet för {garageHandler.Garage.Capacity}");
+            Console.WriteLine($"I garaget finns nu {garageHandler.Garage.CountVehicle} fordom");
+            Console.WriteLine($"Garaget har just nu kapacitet för {garageHandler.Garage.Capacity} fordom");
             Console.WriteLine("1. Ändra garagets kapacitet");
             Console.WriteLine("2. Lägg till ett fordom");
             Console.WriteLine("3. Lista samtliga parkerade fordom i garaget");
@@ -19,52 +20,6 @@ namespace Garage1_0
             Console.WriteLine("6. Sök efter fordom utifrån en eller flera egenskaper");
             Console.WriteLine("7. Ta bort ett fordom från garaget");
             Console.WriteLine("0. Avsluta programmet");
-
-        }
-
-        public int ChoiceVehicle(GarageHandler garageHandler)
-        {
-            Console.WriteLine("Ange vilket fordom du vill registrera i garaget");
-            Console.WriteLine("1. Car");
-            Console.WriteLine("2. Bus");
-            Console.WriteLine("3. Boat");
-            Console.WriteLine("4. MotorCycle");
-            Console.WriteLine("5. Airplane");
-            int vehicle = 0;
-            int.TryParse(Console.ReadLine(), out vehicle);
-            return vehicle;
-
-        }
-
-        public Vehicle AddVehicle(string vehicle)
-        {
-            Console.Write("Ange Registreringsnummer: ");
-            string regNr = Console.ReadLine();
-
-            Console.Write("Ange Färg: ");
-            string color = Console.ReadLine();
-
-            Console.Write("Ange antal hjul: ");
-            int wheel = 0;
-            int.TryParse(Console.ReadLine(), out wheel);
-
-            Console.Write("Ange vikt: ");
-            int weight = 0;
-            int.TryParse(Console.ReadLine(), out weight);
-
-
-
-            switch (vehicle)
-            {
-                case "Car":
-                    Console.WriteLine("Ange bilmärke: ");
-                    string carBrand = Console.ReadLine();
-                    Car car = new Car(regNr, color, weight, carBrand);
-                    return car;
-
-
-            }
-            return null;
         }
 
         public int NewCapacity(GarageHandler garageHandler)
@@ -74,16 +29,6 @@ namespace Garage1_0
             int.TryParse(Console.ReadLine(), out capacity);
 
             return capacity;
-        }
-
-        public void ShowWrongMessage(string wrongMessage)
-        {
-            Console.WriteLine(wrongMessage);
-        }
-
-        public ConsoleKey GetKey()
-        {
-            return Console.ReadKey(intercept: true).Key;
         }
 
         public Commando getCommand()
@@ -154,21 +99,22 @@ namespace Garage1_0
 
                 Console.WriteLine("Ange en siffra mellan 1-5 för att ange en fordomstyp");
             } while (true);
-
-
-
         }
 
         public Vehicle AddVehicleMenu(VehicleTypes vehicleType)
         {
-            Console.Write("Ange Registreringsnummer: ");
-            string regNr = Console.ReadLine();
+            string regNr = "";
+            while (regNr == "")
+            {
+                Console.Write("Ange Registreringsnummer: ");
+                regNr = Console.ReadLine();
+            }
 
             Console.Write("Ange Färg: ");
             string color = Console.ReadLine();
 
-            Console.Write("Ange vikt: ");
             int weight = 0;
+            Console.Write("Ange vikt: ");
             int.TryParse(Console.ReadLine(), out weight);
 
             switch (vehicleType)
@@ -196,14 +142,21 @@ namespace Garage1_0
                     int.TryParse(Console.ReadLine(), out length);
                     Bus bus = new Bus(regNr, color, wheel, weight, length);
                     return bus;
-
+                case VehicleTypes.Motorcycle:
+                    Console.Write("Ange antal hjul: ");
+                    wheel = 0;
+                    int.TryParse(Console.ReadLine(), out wheel);
+                    Console.Write("Ange max hastigheten på motorcykeln: ");
+                    int MaxSpeed = 0;
+                    int.TryParse(Console.ReadLine(), out MaxSpeed);
+                    Motorcycle motorcycle = new Motorcycle(regNr, color, wheel, weight, MaxSpeed);
+                    return motorcycle;
+                case VehicleTypes.Boat:
+                    Console.Write("Ange båtens bränsletyp: ");
+                    string fuelType = Console.ReadLine();
+                    Boat boat = new Boat(regNr, color, weight, fuelType);
+                    return boat;
             }
-
-
-
-           
-
-           
             return null;
         }
 
@@ -264,7 +217,7 @@ namespace Garage1_0
             Console.WriteLine("Ange de egenskaper du vill söka efter. Tryck på enter om du inte vill söka efter egenskapen.");
             foreach (var property in properties)
             {
-                Console.Write(property);
+                Console.Write(property + ": ");
                 string value = Console.ReadLine();
                 if (value != "")
                     propertiesValue.Add(property, value);

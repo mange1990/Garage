@@ -5,12 +5,8 @@ namespace Garage1_0
 {
     public interface IUI
     {
-        Vehicle AddVehicle(string vehicle);
-        int ChoiceVehicle(GarageHandler garageHandler);
-        ConsoleKey GetKey();
         int NewCapacity(GarageHandler garageHandler);
         void ShowMainMenu(GarageHandler garageHandler);
-        void ShowWrongMessage(string wrongMessage);
         Commando getCommand();
         void ListAllVehicle(string v);
         VehicleTypes GetVehicleType();
@@ -25,6 +21,6 @@ namespace Garage1_0
         int getCapacity();
         void Quit();
         Dictionary<string, string> GetSearchPropertiesAndValues(List<string> properties);
-void PrintVehicles(List<Vehicle> vehicles);
+        void PrintVehicles(List<Vehicle> vehicles);
     }
 }
